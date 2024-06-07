@@ -26,6 +26,7 @@ public class LightingManager : MonoBehaviour
         {
             UpdateLighting(TimeOfDay / 24f);
         }
+
     }
 
 
