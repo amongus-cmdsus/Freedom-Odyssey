@@ -6,16 +6,27 @@ public class PlayerMovement : MonoBehaviour
     Vector3 position;
     public float heightAboveGround;
 
+    public bool allowedToMove;
+    public float horizontalInput;
+    public float verticalInput;
+
+    private void Start()
+    {
+        allowedToMove = true;
+    }
+
     void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        if (allowedToMove) 
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+        }
 
         //Gives height for sprite
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit ground, Mathf.Infinity))
         {
             position = ground.point + new Vector3(0, heightAboveGround, 0);
-            Debug.DrawRay(transform.position, Vector3.down, Color.red);
         }
 
         //Taking in player's input

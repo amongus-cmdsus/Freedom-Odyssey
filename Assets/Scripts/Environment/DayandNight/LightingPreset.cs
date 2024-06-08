@@ -8,6 +8,4 @@ public class LightingPreset : ScriptableObject
    public Gradient DirectionalColor;
 
    public Gradient FogColor;
-   
-
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Combat : MonoBehaviour
 {
@@ -23,9 +24,6 @@ public class Combat : MonoBehaviour
     //Collider array for enemy checks and a list of enemies in range
     Collider[] enemyCheck;
     public float enemyCheckRadius;
-    Collider[] extraEnemyCheck;
-    public float extraEnemyCheckRadius;
-    List<Enemy> enemiesInRange = new List<Enemy>();
 
     //Switching between modes
     int combatMode;
@@ -50,21 +48,13 @@ public class Combat : MonoBehaviour
             //Check all colliders in range to see if there are enemies in the vicinity
             foreach (Collider enemy in enemyCheck)
             {
+                //If enemy is detected then create the combat overlay by duplicating the terrain then moving it up a little bit
                 if (enemy.tag == "Enemy")
                 {
-                    //If enemy is detected then do another check for extra surrounding enemies and add them to a list
-                    extraEnemyCheck = Physics.OverlapSphere(transform.position, extraEnemyCheckRadius);
-
-                    foreach (Collider extraEnemies in extraEnemyCheck)
-                    {
-                        if (extraEnemies.tag == "Enemy")
-                        {
-                            enemiesInRange.Add(new Enemy(extraEnemies.GetComponent<Stats>().health, extraEnemies.gameObject));
-                        }
-                    }
-                    groundOverlay = Instantiate(ground, ground.transform.position + new Vector3(0, 0.1f, 1), Quaternion.identity);
+                    groundOverlay = Instantiate(ground, ground.transform.position + new Vector3(0, 1, 1), Quaternion.identity);
                     groundOverlay.GetComponent<MeshRenderer>().material = combatMat;
-                    groundOverlay.GetComponent<MeshRenderer>().material.SetVector("_Offset", transform.position + new Vector3(1,0,1));
+                    groundOverlay.GetComponent<MeshRenderer>().material.SetVector("_GridOffset", -transform.position + new Vector3(0.5f,0,0.5f));
+                    Destroy(groundOverlay.GetComponent<BoxCollider>());
                     combatMode = 1;
                 }
             }
@@ -72,8 +62,9 @@ public class Combat : MonoBehaviour
          
         if (combatMode == 1)
         {
-            playerMovement.enabled = false;
-            
+            playerMovement.horizontalInput = 0;
+            playerMovement.verticalInput = 0;
+            playerMovement.allowedToMove = false;
             groundOverlay.GetComponent<MeshRenderer>().material.SetVector(Shader.PropertyToID("_PlayersPosition"), transform.position);
             groundOverlay.GetComponent<MeshRenderer>().material.SetFloat(Shader.PropertyToID("_AttackRange"), AttackRange);
         }
