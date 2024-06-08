@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,13 +6,14 @@ public class PlayerMovement : MonoBehaviour
     Vector3 position;
     public float heightAboveGround;
 
-    void Update()
+    void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         //Gives height for sprite
-        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit ground, Mathf.Infinity)){
+        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit ground, Mathf.Infinity))
+        {
             position = ground.point + new Vector3(0, heightAboveGround, 0);
             Debug.DrawRay(transform.position, Vector3.down, Color.red);
         }
