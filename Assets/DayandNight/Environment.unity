@@ -489,17 +489,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1306931200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72db626827bbf3e4c8209341814aefc6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cad86c5b977173488965c8dccdf60a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 709157660}
-  level: 0
-  health: 0
-  speed: 0
-  atk: 0
-  def: 0
-  enemyCheckRadius: 1
-  extraEnemyCheckRadius: 5
+  movementSpeed: 5
 --- !u!114 &1306931206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,10 +502,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1306931200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc1fd5a7ffc562b47a66b91281f1fcc5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9317202588df2154fb47ba22dd89caa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  hunger: 0
+  hungerSpeed: 0
+  thirst: 0
+  thirstSpeed: 0
+  wearines: 0
 --- !u!1 &1394575650
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +669,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4de634d5ab185e54990a07ed6ee08c9c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

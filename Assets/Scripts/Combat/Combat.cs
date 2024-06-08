@@ -55,7 +55,6 @@ public class Combat : MonoBehaviour
         if(combatMode == 1){
             playerMovement.enabled = false;
 
-            ground.GetComponent<Renderer>().material.Offset = transform.position;
         }
     }
 }
