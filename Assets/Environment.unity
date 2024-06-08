@@ -508,7 +508,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cad86c5b977173488965c8dccdf60a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  hunger: 0
+  hungerSpeed: 0
+  thirst: 0
+  thirstSpeed: 0
+  wearines: 0
 --- !u!1 &1394575650
 GameObject:
   m_ObjectHideFlags: 0
