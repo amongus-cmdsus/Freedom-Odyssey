@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed = 5;
     Vector3 position;
+    public float heightAboveGround;
 
     void Update()
     {
@@ -14,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
         //Gives height for sprite
         if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit ground, Mathf.Infinity)){
-            position = ground.point + new Vector3(0,0.8f,0);
+            position = ground.point + new Vector3(0, heightAboveGround, 0);
+            Debug.DrawRay(transform.position, Vector3.down, Color.red);
         }
 
         //Taking in player's input

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Combat : MonoBehaviour
 {
@@ -8,12 +9,16 @@ public class Combat : MonoBehaviour
 
     //Player stats
     public GameObject player;
+    public float AttackRange;
 
     //Enemy stats
     public class Enemy{
+        public GameObject thisEnemy;
         public int enemyHealth;
-        public Enemy(int _enemyHealth){
+        public Enemy(int _enemyHealth, GameObject _thisEnemy)
+        {
             enemyHealth = _enemyHealth;
+            thisEnemy = _thisEnemy;
         }
     }
 
@@ -45,7 +50,7 @@ public class Combat : MonoBehaviour
 
                 foreach(Collider extraEnemies in extraEnemyCheck){
                     if(extraEnemies.tag == "Enemy"){
-                        enemiesInRange.Add(new Enemy(extraEnemies.GetComponent<Stats>().health));
+                        enemiesInRange.Add(new Enemy(extraEnemies.GetComponent<Stats>().health, extraEnemies.gameObject));
                     }
                 }
                 combatMode = 1;
@@ -54,6 +59,9 @@ public class Combat : MonoBehaviour
 
         if(combatMode == 1){
             playerMovement.enabled = false;
+
+            ground.GetComponent<MeshRenderer>().material.SetVector(Shader.PropertyToID("_PlayersPosition"), transform.position);
+            ground.GetComponent<MeshRenderer>().material.SetFloat(Shader.PropertyToID("_AttackRange"), AttackRange);
         }
     }
 }

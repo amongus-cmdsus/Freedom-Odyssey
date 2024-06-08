@@ -74,9 +74,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AttackRange: 10
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
+    - _CellSize: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -88,7 +90,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShaderAlpha: 0.51
+    - _ShaderAlpha: 0.9
+    - _ShaderTransparency: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -98,7 +101,10 @@ Material:
     - _CellSize: {r: 2, g: 2, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GridColours: {r: 0.39119795, g: 0.5566038, b: 0.42679662, a: 0}
+    - _GridColours: {r: 0.5568628, g: 0.39215687, b: 0.41392678, a: 0}
     - _GridLineColour: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 0}
-    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _MoveableAreaColour: {r: 0.46457815, g: 0.6792453, b: 0.5206565, a: 0}
+    - _Offset: {r: 56, g: 0, b: 56, a: 0}
+    - _PlayersPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _RestrictedAreaColour: {r: 0.5283019, g: 0.43609828, b: 0.43609828, a: 0}
   m_BuildTextureStacks: []
