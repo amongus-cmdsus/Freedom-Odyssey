@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,8 +15,7 @@ public class Combat : MonoBehaviour
     Collider[] enemyCheck;
     public float enemyCheckRadius;
 
-    //Switching between modes
-    //0 = not in combat | 1 = starting combat | 2 = 
+    //Switching between stages of combat
     int combatMode;
     PlayerMovement playerMovement;
 
@@ -25,21 +25,23 @@ public class Combat : MonoBehaviour
     public Material combatMat;
 
     //Movement during combat
-    List<float> xPositions;
     float xPositionMin;
     float xPositionMax;
+    float[] xDistance;
 
-    List<float> zPositions;
     float zPositionMin;
     float zPositionMax;
+    float[] zDistance;
+
+    float[] gridValue;
+
+    Vector3[] points;
 
     public GameObject debugTool;
 
     void Start() 
     {
         playerMovement = this.gameObject.GetComponent<PlayerMovement>();
-        xPositions = new List<float>();
-        zPositions = new List<float>();
     }
 
     void FixedUpdate()
@@ -64,7 +66,8 @@ public class Combat : MonoBehaviour
                 }
             }
         }
-         
+
+        //Creating grid and defining which tiles is moveable
         if (combatMode == 1)
         {
             //Disabling players input while keeping the height control
@@ -72,6 +75,7 @@ public class Combat : MonoBehaviour
             playerMovement.verticalInput = 0;
             playerMovement.allowedToMove = false;
 
+            //Passing on player's info into the grid shader
             groundOverlay.GetComponent<MeshRenderer>().material.SetVector(Shader.PropertyToID("_PlayersPosition"), transform.position);
             groundOverlay.GetComponent<MeshRenderer>().material.SetFloat(Shader.PropertyToID("_AttackRange"), AttackRange);
 
@@ -81,19 +85,35 @@ public class Combat : MonoBehaviour
             zPositionMax = transform.position.z + AttackRange;
             zPositionMin = transform.position.z - AttackRange;
 
-            for (float i = xPositionMin; i <= xPositionMax; i++)
+            xDistance = new float[(int)Mathf.Round(xPositionMax) - (int)Mathf.Round(xPositionMin) + 1];
+            zDistance = new float[(int)Mathf.Round(zPositionMax) - (int)Mathf.Round(zPositionMin) + 1];
+
+            gridValue = new float[xDistance.Length * zDistance.Length];
+
+            points = new Vector3[xDistance.Length * zDistance.Length];
+
+            for (int i = 0; i < xDistance.Length; i++)
             {
-                xPositions.Add(i);
-                Instantiate(debugTool, new Vector3(i,1,transform.position.z), Quaternion.identity);
+                xDistance[i] = Mathf.Round(transform.position.x - (xPositionMin + i));
+
+                for (int j = 0; j < zDistance.Length; j++)
+                {
+                    zDistance[j] = Mathf.Round(transform.position.z - (zPositionMin + j));
+                    gridValue[i*j] = Mathf.Abs(xDistance[i]) + Mathf.Abs(zDistance[j]);
+
+                    if (gridValue[i*j] <= AttackRange)
+                    {
+                        points[i*j] = new Vector3(transform.position.x - xDistance[i], 1, transform.position.z - zDistance[j]);
+                    }
+                }
             }
 
-            for (float i = zPositionMin; i <= zPositionMax; i++)
-            {
-                zPositions.Add(i);
-                Instantiate(debugTool, new Vector3(transform.position.x, 1, i), Quaternion.identity);
-            }
+            combatMode = 2;
+        }
 
-            Debug.Break();
+        if (combatMode == 2)
+        {
+
         }
     }
 }

@@ -23,8 +23,7 @@ public class RandomMovement : MonoBehaviour
         if(Vector3.Distance(transform.position, player.transform.position) <= 5)
         {
             //Check if we are at the destination
-            transform.position = Vector3.MoveTowards(transform.position,player.transform.position,movementSpeed*Time.deltaTime*2);
-            print("attak");
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime * 2);
         }
         else
         {
