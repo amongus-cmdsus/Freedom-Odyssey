@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Gives height for sprite
-        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit ground, Mathf.Infinity))
+        if(Physics.Raycast(transform.position + new Vector3(0,100,0), Vector3.down, out RaycastHit ground, Mathf.Infinity))
         {
             position = ground.point + new Vector3(0, heightAboveGround, 0);
         }
