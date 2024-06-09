@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 181675250}
   - component: {fileID: 181675253}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: DebuggingTool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -859,10 +859,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1306931200}
-  AttackRange: 4
+  AttackRange: 5
   enemyCheckRadius: 1
   ground: {fileID: 1510492952}
   combatMat: {fileID: 2100000, guid: 4de634d5ab185e54990a07ed6ee08c9c, type: 2}
+  debugTool: {fileID: 181675249}
 --- !u!114 &1306931206
 MonoBehaviour:
   m_ObjectHideFlags: 0
