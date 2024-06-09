@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed = 5;
-    Vector3 position;
+    public Vector3 position;
     public float heightAboveGround;
 
     public bool allowedToMove;

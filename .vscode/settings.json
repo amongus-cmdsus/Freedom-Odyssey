@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Freedom-Odyssey-Collab-Ver.sln"
+    "dotnet.defaultSolution": "Freedom-Odyssey.sln"
 }
