@@ -335,8 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd0e67c89cb7184ab381ea4f96d423c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
   player: {fileID: 1306931200}
+  movementSpeed: 0
+  waitTimeMax: 0
 --- !u!114 &1223510256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,7 +448,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1306931204}
-  - component: {fileID: 1306931205}
   - component: {fileID: 1306931206}
   m_Layer: 0
   m_Name: Player
@@ -473,25 +473,6 @@ Transform:
   - {fileID: 709157661}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1306931205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1306931200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cee355dbac9c2ab4983717cae2ac5b86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1306931200}
-  attackRange: 3
-  speed: 3
-  enemyCheckRadius: 10
-  ground: {fileID: 1510492952}
-  combatMat: {fileID: 2100000, guid: 4de634d5ab185e54990a07ed6ee08c9c, type: 2}
-  debugTool: {fileID: 181675249}
 --- !u!114 &1306931206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,11 +486,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  position: {x: 0, y: 0, z: 0}
   heightAboveGround: 0.25
-  allowedToMove: 0
-  horizontalInput: 0
-  verticalInput: 0
+  combatManager: {fileID: 2009508098}
+  enemyCheckRadius: 2
+  moveRange: 5
 --- !u!1 &1510492952
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,6 +687,53 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &2009508097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009508099}
+  - component: {fileID: 2009508098}
+  m_Layer: 0
+  m_Name: CombatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2009508098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009508097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee355dbac9c2ab4983717cae2ac5b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1306931204}
+  ground: {fileID: 1510492952}
+  combatMat: {fileID: 2100000, guid: 4de634d5ab185e54990a07ed6ee08c9c, type: 2}
+--- !u!4 &2009508099
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009508097}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.705355, y: -38.900013, z: 6.9235563}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140214177
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +849,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2140214179}
+  - {fileID: 2009508099}
   - {fileID: 1510492955}
   - {fileID: 1306931204}
   - {fileID: 1223510259}

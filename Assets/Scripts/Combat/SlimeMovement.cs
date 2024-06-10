@@ -4,22 +4,21 @@ using UnityEngine.UIElements;
 
 public class RandomMovement : MonoBehaviour 
 {
+    public GameObject player;
     public float movementSpeed = 5;
     Vector3 direction;
-    public GameObject player;
 
-    int someTime;
+    public int waitTimeMax;
     float seconds;
 
     void Start ()
     {
-        someTime = Random.Range(1,10);
+        waitTimeMax = Random.Range(1,10);
         direction = new Vector3(Random.Range(-10,10),0.8f,Random.Range(-10,10));
     }
 
     private void Update() 
     {   
-        
         if(Vector3.Distance(transform.position, player.transform.position) <= 5)
         {
             //Check if we are at the destination
@@ -30,17 +29,17 @@ public class RandomMovement : MonoBehaviour
             if (transform.position == direction) 
             {
                 //Wait for someTime
-                if(seconds != someTime)
+                if(seconds != waitTimeMax)
                 {
                     seconds = seconds + Time.deltaTime;
                     direction = transform.position;
                 }
                 
                 //Decide new direction once finished waiting
-                if (seconds >= someTime)
+                if (seconds >= waitTimeMax)
                 {
                     seconds = 0;
-                    someTime = Random.Range(1,10);
+                    waitTimeMax = Random.Range(1,10);
                     direction = new Vector3(Random.Range(-10,10),0.8f,Random.Range(-10,10));
                 }
             }
