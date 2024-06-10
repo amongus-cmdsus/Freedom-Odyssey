@@ -9,6 +9,7 @@ public class Combat : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 playerPosition;
+    [HideInInspector]
     public Vector3 playerNewPosition;
 
     //Overlay
