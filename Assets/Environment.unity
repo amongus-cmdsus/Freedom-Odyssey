@@ -188,6 +188,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: b11e13e81e1736049838ecc21e325df6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b11e13e81e1736049838ecc21e325df6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f8eea33f177a63545a9641df32233948, type: 2}
@@ -350,12 +354,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: b11e13e81e1736049838ecc21e325df6, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b11e13e81e1736049838ecc21e325df6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 21bb92fc6fc56924e97de91981a6ef07, type: 2}
     - target: {fileID: 919132149155446097, guid: b11e13e81e1736049838ecc21e325df6, type: 3}
       propertyPath: m_Name
       value: EventHorizon
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b11e13e81e1736049838ecc21e325df6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
