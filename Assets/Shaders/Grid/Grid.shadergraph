@@ -794,7 +794,7 @@
     "m_Theme": 1,
     "m_Position": {
         "serializedVersion": "2",
-        "x": -663.0,
+        "x": -623.0,
         "y": -8.0,
         "width": 617.0,
         "height": 100.0
@@ -3946,8 +3946,8 @@
     "m_Theme": 1,
     "m_Position": {
         "serializedVersion": "2",
-        "x": -586.24169921875,
-        "y": -434.3412780761719,
+        "x": -820.0,
+        "y": -470.0,
         "width": 617.0,
         "height": 100.0
     },
