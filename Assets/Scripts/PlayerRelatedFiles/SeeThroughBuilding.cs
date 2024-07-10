@@ -6,7 +6,7 @@ public class SeeThroughBuilding : MonoBehaviour
 
     public GameObject player;
 
-    Material[] currentBuildingMat;
+    Material[] currentBuildingInTheWay;
     Material[] previousBuildingMaterial;
     bool assignBuilding = true;
 
@@ -14,59 +14,66 @@ public class SeeThroughBuilding : MonoBehaviour
     {
         cameraPosition = player.transform.position + new Vector3(0, 10, -10);
 
-        RaycastHit buildingInTheWay;
+        RaycastHit objectInTheWay;
 
-        if (Physics.Raycast(transform.position, player.transform.position - cameraPosition, out buildingInTheWay, Mathf.Infinity))
+        if (Physics.Raycast(transform.position, player.transform.position - cameraPosition, out objectInTheWay, Mathf.Infinity))
         {
-            if (buildingInTheWay.transform.gameObject.layer == 3)
+            if (objectInTheWay.transform.gameObject.layer == 3)
             {
-                currentBuildingMat = buildingInTheWay.transform.gameObject.GetComponent<MeshRenderer>().materials;
+                currentBuildingInTheWay = objectInTheWay.transform.gameObject.GetComponent<MeshRenderer>().materials;
 
                 if (assignBuilding)
                 {
-                    previousBuildingMaterial = buildingInTheWay.transform.gameObject.GetComponent<MeshRenderer>().materials;
+                    previousBuildingMaterial = objectInTheWay.transform.gameObject.GetComponent<MeshRenderer>().materials;
                     assignBuilding = false;
                 }
 
-                for (int i = 0; i < currentBuildingMat.Length; i++)
+                //Set each material in the current building transparent
+                for (int i = 0; i < currentBuildingInTheWay.Length; i++)
                 {
-                    currentBuildingMat[i].SetFloat("_Surface", 1);
-                    currentBuildingMat[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                    currentBuildingMat[i].SetInt("_ZWrite", 0);
-                    currentBuildingMat[i].EnableKeyword("_ALPHAPREMULTIPLY_ON");
-                    currentBuildingMat[i].renderQueue = 3000;
-
-                    Color currentColor = currentBuildingMat[i].color;
-                    currentColor.a = 0.02f;
-                    currentBuildingMat[i].color = currentColor;
+                    SetTransparent(currentBuildingInTheWay[i]);
                 }
 
-                //Check to see if hitting a different building
-                if (previousBuildingMaterial[0] != currentBuildingMat[0])
+                //If its hitting a different building, then set the previous building to be normal again
+                if (previousBuildingMaterial[0] != currentBuildingInTheWay[0])
                 {
                     for (int i = 0; i < previousBuildingMaterial.Length; i++)
                     {
-                        previousBuildingMaterial[i].SetFloat("_Surface", 0);
-                        previousBuildingMaterial[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-                        previousBuildingMaterial[i].SetInt("_ZWrite", 1);
-                        previousBuildingMaterial[i].DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                        previousBuildingMaterial[i].renderQueue = -1;
+                        SetOpaque(previousBuildingMaterial[i]);
                     }
                     assignBuilding = true;
                 }
             }
-            else if (previousBuildingMaterial != null) 
+            else if (previousBuildingMaterial != null) //Check if hitting ground instead now
             {
                 for (int i = 0; i < previousBuildingMaterial.Length; i++)
                 {
-                    previousBuildingMaterial[i].SetFloat("_Surface", 0);
-                    previousBuildingMaterial[i].SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-                    previousBuildingMaterial[i].SetInt("_ZWrite", 1);
-                    previousBuildingMaterial[i].DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                    previousBuildingMaterial[i].renderQueue = -1;
+                    SetOpaque(previousBuildingMaterial[i]);
                 }
                 assignBuilding = true;
             }
         }
+    }
+
+    void SetTransparent(Material material)
+    {
+        material.SetFloat("_Surface", 1);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        material.SetInt("_ZWrite", 0);
+        material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.renderQueue = 3000;
+
+        Color currentColor = material.color;
+        currentColor.a = 0.02f;
+        material.color = currentColor;
+    }
+
+    void SetOpaque(Material material)
+    {
+        material.SetFloat("_Surface", 0);
+        material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        material.SetInt("_ZWrite", 1);
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.renderQueue = -1;
     }
 }

@@ -6,39 +6,38 @@ public class RandomMovement : MonoBehaviour
     public float movementSpeed = 5;
     Vector3 direction;
 
-    public int waitTimeMax;
+    public int waitTime;
     float seconds;
 
     void Start ()
     {
-        waitTimeMax = Random.Range(1,10);
-        direction = new Vector3(Random.Range(-10,10),0.8f,Random.Range(-10,10));
+        waitTime = Random.Range(1,10);
+        direction = new Vector3(Random.Range(-10,10), 0.8f, Random.Range(-10,10));
     }
 
+    // Move towards player if they are in certain range
+    // If no player in range, then move towards a random point and wait for some time
     private void Update() 
     {   
         if(Vector3.Distance(transform.position, player.transform.position) <= 5)
         {
-            //Check if we are at the destination
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, movementSpeed * Time.deltaTime * 2);
         }
         else
         {
             if (transform.position == direction) 
             {
-                //Wait for someTime
-                if(seconds != waitTimeMax)
+                if(seconds != waitTime)
                 {
                     seconds = seconds + Time.deltaTime;
                     direction = transform.position;
                 }
                 
-                //Decide new direction once finished waiting
-                if (seconds >= waitTimeMax)
+                if (seconds >= waitTime)
                 {
                     seconds = 0;
-                    waitTimeMax = Random.Range(1,10);
-                    direction = new Vector3(Random.Range(-10,10),0.8f,Random.Range(-10,10));
+                    waitTime = Random.Range(1,10);
+                    direction = new Vector3(Random.Range(-10,10), 0.8f, Random.Range(-10,10));
                 }
             }
             transform.position = Vector3.MoveTowards(transform.position, direction, movementSpeed*Time.deltaTime);

@@ -1,21 +1,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat : MonoBehaviour
+public class GridCombat : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 playerPosition;
     [HideInInspector]
     public Vector3 playerNewPosition;
 
-    //Overlay
+    // Overlay
     public GameObject ground;
+    public Material gridMat;
     [HideInInspector]
     public GameObject instantiatedGround;
     MeshRenderer instantiatedGroundMeshRenderer;
-    public Material combatMat;
 
-    public List<Vector3> ThisUnitsMoveablePoints(Vector3 currentPosition, int moveRange, float heightAboveGround)
+    // Movement
+    public float heightAboveGround;
+    public float movementSpeed;
+
+    public int moveRange;
+    List<Vector3> moveablePoints;
+    Vector3 closestMoveablePoint;
+
+    void CreateOverlay()
+    {
+        instantiatedGround = Instantiate(ground, ground.transform.position + new Vector3(0, 0.01f, 0), ground.transform.rotation);
+
+        instantiatedGroundMeshRenderer = instantiatedGround.GetComponent<MeshRenderer>();
+        instantiatedGroundMeshRenderer.material = gridMat;
+        instantiatedGroundMeshRenderer.material.SetVector("_GridOffset", -playerPosition + new Vector3(0.5f, 0, 0.5f));
+        instantiatedGroundMeshRenderer.material.SetVector(Shader.PropertyToID("_PlayersPosition"), playerPosition);
+
+        Destroy(instantiatedGround.GetComponent<BoxCollider>());
+    }
+
+    List<Vector3> MoveblePoints(Vector3 currentPosition, int moveRange, float heightAboveGround)
     {
         instantiatedGround.GetComponent<MeshRenderer>().material.SetFloat(Shader.PropertyToID("_AttackRange"), moveRange);
 
@@ -30,7 +50,6 @@ public class Combat : MonoBehaviour
 
         List<Vector3> moveablePoints = new List<Vector3>();
 
-        //Creating a box around the player based on attack range 
         xPositionMax = currentPosition.x + moveRange;
         xPositionMin = currentPosition.x - moveRange;
 
@@ -67,23 +86,43 @@ public class Combat : MonoBehaviour
         return moveablePoints;
     }
 
-    public void CreateOverlay()
-    {
-        instantiatedGround = Instantiate(ground, ground.transform.position + new Vector3(0, 0.01f, 1), ground.transform.rotation);
-
-        instantiatedGroundMeshRenderer = instantiatedGround.GetComponent<MeshRenderer>();
-        instantiatedGroundMeshRenderer.material = combatMat;
-        instantiatedGroundMeshRenderer.material.SetVector("_GridOffset", -playerPosition + new Vector3(0.5f, 0, 0.5f));
-        instantiatedGroundMeshRenderer.material.SetVector(Shader.PropertyToID("_PlayersPosition"), playerPosition);
-
-        Destroy(instantiatedGround.GetComponent<BoxCollider>());
-    }
-
     private void Update()
     {
         if (instantiatedGroundMeshRenderer != null)
         {
             instantiatedGroundMeshRenderer.material.SetVector(Shader.PropertyToID("_PlayersPosition"), playerNewPosition);
+        }
+
+        moveablePoints = MoveblePoints(transform.position, moveRange, heightAboveGround);
+
+        if (Input.GetMouseButtonDown(0) && transform.position == closestMoveablePoint)
+        {
+            moveablePoints = MoveblePoints(transform.position, moveRange, heightAboveGround);
+            float closestDistanceToPoint = Mathf.Infinity;
+            Ray mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit worldPos;
+
+            if (Physics.Raycast(mousePos, out worldPos, 100f))
+            {
+                for (int i = 0; i < moveablePoints.Count; i++)
+                {
+                    if (Vector3.Distance(moveablePoints[i], worldPos.point) <= closestDistanceToPoint)
+                    {
+                        closestMoveablePoint = moveablePoints[i];
+                        closestDistanceToPoint = Vector3.Distance(moveablePoints[i], worldPos.point);
+                    }
+                }
+            }
+        }
+
+        if (transform.position != closestMoveablePoint)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, closestMoveablePoint, movementSpeed * Time.deltaTime);
+        }
+
+        if (transform.position == closestMoveablePoint)
+        {
+            playerNewPosition = transform.position;
         }
     }
 }

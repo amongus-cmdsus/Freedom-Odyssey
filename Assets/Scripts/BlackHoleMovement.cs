@@ -7,7 +7,6 @@ public class BlackHoleMovement : MonoBehaviour
 
     public float rotationSpeed;
 
-    // Update is called once per frame
     void Update()
     {
         eventHorizon.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime); 
