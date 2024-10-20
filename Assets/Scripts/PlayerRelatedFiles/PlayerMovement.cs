@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Face towards the direction we are moving
+    public float turnSmoothTime = 0.1f;
     Vector3 FaceTowardsDir(Vector3 inputs)
     {
-        float smoothTime = 0.1f ;
         float turnSmoothVelocity = 0f;
 
         // Get angle to face relative to camera
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         // Set the move direction to the angle before we smooth it
         Vector3 moveDir = Quaternion.Euler(0f, angleToFace, 0f) * Vector3.forward;
         // Smooth out the angle because otherwise it turns too quickly
-        angleToFace = Mathf.SmoothDampAngle(transform.eulerAngles.y, angleToFace, ref turnSmoothVelocity, smoothTime);
+        angleToFace = Mathf.SmoothDampAngle(transform.eulerAngles.y, angleToFace, ref turnSmoothVelocity, turnSmoothTime);
         // Apply rotation
         transform.rotation = Quaternion.Euler(0f, angleToFace, 0f);
 
