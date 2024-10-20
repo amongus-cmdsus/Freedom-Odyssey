@@ -63,8 +63,8 @@ public class SeeThroughBuilding : MonoBehaviour
         material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
         material.renderQueue = 3000;
 
-        Color currentColor = material.color;
-        currentColor.a = 0.02f;
+        Color currentColor =  material.color;
+        currentColor.a = 0.5f;
         material.color = currentColor;
     }
 
