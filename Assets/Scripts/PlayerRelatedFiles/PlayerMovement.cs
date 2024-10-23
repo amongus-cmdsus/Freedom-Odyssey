@@ -83,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
                 modifiedGravityValue = gravityValue;
             }
 
+            previousYPos = character.transform.position.y;
+
             verticalVelocity.y += modifiedGravityValue * Time.deltaTime;
         }
 
