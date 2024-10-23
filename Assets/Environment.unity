@@ -475,8 +475,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737900040}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.34950745, y: 0.00000002878216, z: -0.000000010736706, w: 0.93693364}
-  m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
+  m_LocalRotation: {x: 0.34950748, y: 0.000000037102925, z: -0.000000013840628, w: 0.93693364}
+  m_LocalPosition: {x: 0, y: -0.0000009536743, z: -0.00000047683716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -554,8 +554,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804731253}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.34950745, y: 0.00000002878216, z: -0.000000010736706, w: 0.93693364}
-  m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
+  m_LocalRotation: {x: 0.34950748, y: 0.000000037102925, z: -0.000000013840628, w: 0.93693364}
+  m_LocalPosition: {x: 0, y: -0.0000009536743, z: -0.00000047683716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -633,8 +633,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996987769}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17899986, y: 0, z: 0, w: 0.9838491}
-  m_LocalPosition: {x: 0, y: -7.5, z: 3.5}
+  m_LocalRotation: {x: 0.2951045, y: 0.00000000711877, z: -0.0000000021987, w: 0.955465}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -809,6 +809,7 @@ GameObject:
   - component: {fileID: 1248307760}
   - component: {fileID: 1248307763}
   - component: {fileID: 1248307762}
+  - component: {fileID: 1248307764}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -900,6 +901,8 @@ MonoBehaviour:
   cam: {fileID: 1832767411}
   playerSpeed: 9
   turnSmoothTime: 0.05
+  isDashing: 0
+  verticalVelocity: {x: 0, y: 0, z: 0}
   jumpHeight: 16
   gravityValue: -1
   fallSpeedModifer: 2
@@ -928,6 +931,20 @@ CharacterController:
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0.01
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1248307764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248307757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07187af4003f8ac4a93864d1a089f55d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability: {fileID: 11400000, guid: 4dfb961f96a98324c845180592c5a405, type: 2}
+  key: 101
 --- !u!1 &1595585929
 GameObject:
   m_ObjectHideFlags: 0

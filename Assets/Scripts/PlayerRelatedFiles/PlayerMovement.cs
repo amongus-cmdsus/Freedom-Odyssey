@@ -50,13 +50,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Jump 
+    [HideInInspector]
+    public bool isDashing;
+    [HideInInspector]
+    public Vector3 verticalVelocity;
     public float jumpHeight = 1.0f;
-    public float gravityValue = -9.81f;
-    public float fallSpeedModifer = 2;
     private bool isGrounded;
-    private Vector3 verticalVelocity;
     private float previousYPos;
-    private float modifiedGravityValue;
     void CharJump()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, character.bounds.extents.y + 0.1f);
@@ -72,22 +72,33 @@ public class PlayerMovement : MonoBehaviour
             }
 
             previousYPos = character.transform.position.y;
-        } else
+        } 
+        else if (!isDashing)
         {
-            // Fall faster than rise
-            if (character.transform.position.y < previousYPos)
-            {
-                modifiedGravityValue = gravityValue * fallSpeedModifer;
-            } else
-            {
-                modifiedGravityValue = gravityValue;
-            }
-
-            previousYPos = character.transform.position.y;
-
-            verticalVelocity.y += modifiedGravityValue * Time.deltaTime;
+            ApplyGravity();
         }
 
+        print(isGrounded);
         character.Move(verticalVelocity);
+    }
+
+    public float gravityValue = -9.81f;
+    public float fallSpeedModifer = 2;
+    private float modifiedGravityValue;
+    void ApplyGravity()
+    {
+        // Fall faster than rise
+        if (character.transform.position.y < previousYPos)
+        {
+            modifiedGravityValue = gravityValue * fallSpeedModifer;
+        }
+        else
+        {
+            modifiedGravityValue = gravityValue;
+        }
+
+        previousYPos = character.transform.position.y;
+
+        verticalVelocity.y += modifiedGravityValue * Time.deltaTime;
     }
 }
