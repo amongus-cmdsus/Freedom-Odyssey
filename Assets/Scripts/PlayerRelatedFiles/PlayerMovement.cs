@@ -1,3 +1,4 @@
+using UnityEditor.TerrainTools;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -6,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController character;
     public Transform cam;
 
-    private Vector3 verticalVelocity;
     public float playerSpeed = 2.0f;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         character = gameObject.GetComponent<CharacterController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         PlanarMovemement();
         Gravity();
@@ -53,26 +53,34 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Jump 
+    bool isGrounded;
+    private Vector3 verticalVelocity;
     void CharJump()
     {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, character.bounds.extents.y + 0.1f);
+
+        print(isGrounded);
+        
         // Changes the height position of the player
-        if (Input.GetButtonDown("Jump") && character.isGrounded)
+        if (isGrounded)
         {
-            verticalVelocity.y += jumpHeight;
+            verticalVelocity.y = 0;
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                verticalVelocity.y += jumpHeight * Time.deltaTime;
+            }
         }
 
-        character.Move(verticalVelocity * Time.deltaTime);
+        character.Move(verticalVelocity);
     }
 
     // Applies gravity
     void Gravity()
     {
-        if (!character.isGrounded)
+        while (!isGrounded)
         {
             verticalVelocity.y += gravityValue * Time.deltaTime;
-        } else
-        {
-            verticalVelocity.y = 0;
-        }
+        } 
     }
 }
