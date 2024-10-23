@@ -475,8 +475,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737900040}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3495075, y: -0.0000000069806996, z: 0.0000000026040339, w: 0.93693364}
-  m_LocalPosition: {x: 0, y: -0.0000009536743, z: 0}
+  m_LocalRotation: {x: 0.34950748, y: -0.000000013961401, z: 0.0000000052080678, w: 0.93693364}
+  m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -554,8 +554,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804731253}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3495075, y: -0.0000000069806996, z: 0.0000000026040339, w: 0.93693364}
-  m_LocalPosition: {x: 0, y: -0.0000009536743, z: 0}
+  m_LocalRotation: {x: 0.34950748, y: -0.000000013961401, z: 0.0000000052080678, w: 0.93693364}
+  m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -633,8 +633,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996987769}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.17885453, y: 0, z: 0, w: 0.9838756}
-  m_LocalPosition: {x: 0, y: -7.498884, z: 3.4994402}
+  m_LocalRotation: {x: 0.2951045, y: 0.00000004026984, z: -0.000000012437725, w: 0.955465}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -898,10 +898,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1832767411}
-  playerSpeed: 5
-  jumpHeight: 8
+  playerSpeed: 9
+  jumpHeight: 12
   gravityValue: -18
-  turnSmoothTime: 0.1
+  turnSmoothTime: 0.05
 --- !u!143 &1248307763
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1653,7 +1653,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140214177}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db1eb77a8f9151f4aba7453c27909cd3, type: 3}
   m_Name: 
