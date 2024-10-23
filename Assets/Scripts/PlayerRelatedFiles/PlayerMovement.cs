@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform cam;
 
     public float playerSpeed = 2.0f;
-    public float jumpHeight = 1.0f;
-    public float gravityValue = -9.81f;
 
     private void Start()
     {
@@ -19,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         PlanarMovemement();
-        Gravity();
         CharJump();
     }
 
@@ -53,14 +50,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Jump 
-    bool isGrounded;
+    public float jumpHeight = 1.0f;
+    public float gravityValue = -9.81f;
+    public float fallSpeedModifer = 2;
+    private bool isGrounded;
     private Vector3 verticalVelocity;
+    private float previousYPos;
+    private float modifiedGravityValue;
     void CharJump()
     {
         isGrounded = Physics.Raycast(transform.position, Vector3.down, character.bounds.extents.y + 0.1f);
 
-        print(isGrounded);
-        
         // Changes the height position of the player
         if (isGrounded)
         {
@@ -70,17 +70,22 @@ public class PlayerMovement : MonoBehaviour
             {
                 verticalVelocity.y += jumpHeight * Time.deltaTime;
             }
+
+            previousYPos = character.transform.position.y;
+        } else
+        {
+            // Fall faster than rise
+            if (character.transform.position.y < previousYPos)
+            {
+                modifiedGravityValue = gravityValue * fallSpeedModifer;
+            } else
+            {
+                modifiedGravityValue = gravityValue;
+            }
+
+            verticalVelocity.y += modifiedGravityValue * Time.deltaTime;
         }
 
         character.Move(verticalVelocity);
-    }
-
-    // Applies gravity
-    void Gravity()
-    {
-        while (!isGrounded)
-        {
-            verticalVelocity.y += gravityValue * Time.deltaTime;
-        } 
     }
 }

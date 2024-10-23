@@ -475,7 +475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737900040}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.34950745, y: 0, z: 0, w: 0.93693364}
+  m_LocalRotation: {x: 0.34950745, y: 0.00000002878216, z: -0.000000010736706, w: 0.93693364}
   m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -554,7 +554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 804731253}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.34950745, y: 0, z: 0, w: 0.93693364}
+  m_LocalRotation: {x: 0.34950745, y: 0.00000002878216, z: -0.000000010736706, w: 0.93693364}
   m_LocalPosition: {x: 0, y: 0.0000009536743, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -633,7 +633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 996987769}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2951045, y: 0, z: 0, w: 0.955465}
+  m_LocalRotation: {x: 0.2951046, y: 0.00000002847508, z: -0.000000008794804, w: 0.955465}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -899,8 +899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1832767411}
   playerSpeed: 9
-  jumpHeight: 12
-  gravityValue: -3
+  jumpHeight: 16
+  gravityValue: -1
   turnSmoothTime: 0.05
 --- !u!143 &1248307763
 CharacterController:
