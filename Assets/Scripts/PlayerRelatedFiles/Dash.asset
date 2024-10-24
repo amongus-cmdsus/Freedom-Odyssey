@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Swift Step
   cooldown: 2
-  activeTime: 5
-  dashMultiplier: 4
+  activeTime: 0.1
+  dashMultiplier: 10
