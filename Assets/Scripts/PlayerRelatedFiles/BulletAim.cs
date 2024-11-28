@@ -6,9 +6,11 @@ public class BulletAim : MonoBehaviour
     public CinemachineFreeLook normalCam;
     public CinemachineVirtualCamera bulletAimCam;
     public GameObject aimTarget;
+    public Canvas crosshair;
 
     public float mouseSens;
-    
+
+    private CharacterController character;
     private Quaternion playerRotation;
     private Quaternion aimRotation;
     private PlanarMove playerMovement;
@@ -18,6 +20,7 @@ public class BulletAim : MonoBehaviour
         playerRotation = gameObject.transform.rotation;
         aimRotation = aimTarget.transform.rotation;
         playerMovement = gameObject.GetComponent<PlanarMove>();
+        character = gameObject.GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -29,11 +32,15 @@ public class BulletAim : MonoBehaviour
 
             playerMovement.enabled = false;
 
+            crosshair.enabled = true;
             BulletAimCamControl();
+            BulletAimMove();
         } 
         else
         {
             playerMovement.enabled = true;
+
+            crosshair.enabled = false;
             bulletAimCam.Priority = 10;
             normalCam.Priority = 20;
         }
@@ -52,6 +59,8 @@ public class BulletAim : MonoBehaviour
 
     void BulletAimMove()
     {
+        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
 
+        character.Move(direction * 5f * Time.deltaTime);
     }
 }
