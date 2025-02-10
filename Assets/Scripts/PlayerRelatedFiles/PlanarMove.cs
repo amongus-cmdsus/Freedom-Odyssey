@@ -7,6 +7,19 @@ public class PlanarMove : MonoBehaviour
 
     public float playerSpeed = 2.0f;
 
+    // Jump vars
+    [HideInInspector]
+    public bool isDashing;
+    [HideInInspector]
+    public Vector3 verticalVelocity;
+    public float jumpHeight = 1.0f;
+    private bool isGrounded;
+    private float previousYPos;
+
+    public float gravityValue = -9.81f;
+    public float fallSpeedModifer = 2;
+    private float modifiedGravityValue;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -24,10 +37,34 @@ public class PlanarMove : MonoBehaviour
     {
         Vector3 inputs = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
 
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, character.bounds.extents.y + 0.1f);
+
+        // Changes the height position of the player
+        if (isGrounded)
+        {
+            verticalVelocity.y = 0;
+            modifiedGravityValue = 0;
+
+            if (Input.GetButton("Jump"))
+            {
+                verticalVelocity.y += jumpHeight;
+            }
+
+            previousYPos = character.transform.position.y;
+        }
+        else if (!isGrounded && !isDashing)
+        {
+            ApplyGravity();
+        }
+
+        Vector3 moveDirection = verticalVelocity;
+
         if (inputs.magnitude >= 0.1f)
         {
-            character.Move(FaceTowardsDir(inputs) * playerSpeed * Time.deltaTime);
+            moveDirection += FaceTowardsDir(inputs) * playerSpeed;
         }
+
+        character.Move(moveDirection * Time.deltaTime);
     }
 
     // Face towards the direction we are moving
@@ -46,5 +83,22 @@ public class PlanarMove : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, angleToFace, 0f);
 
         return moveDir;
+    }
+
+    void ApplyGravity()
+    {
+        // Fall faster than rise
+        if (character.transform.position.y < previousYPos)
+        {
+            modifiedGravityValue = gravityValue * fallSpeedModifer;
+        }
+        else
+        {
+            modifiedGravityValue = gravityValue;
+        }
+
+        previousYPos = character.transform.position.y;
+
+        verticalVelocity.y += modifiedGravityValue;
     }
 }

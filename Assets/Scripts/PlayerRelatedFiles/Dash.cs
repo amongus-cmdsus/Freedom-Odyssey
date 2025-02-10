@@ -13,13 +13,13 @@ public class Dash: Ability
 
     public override void ActiveEffect(GameObject player)
     {
-        player.GetComponent<Jump>().isDashing = true;
-        player.GetComponent<Jump>().verticalVelocity.y = 0;
+        player.GetComponent<PlanarMove>().isDashing = true;
+        player.GetComponent<PlanarMove>().verticalVelocity.y = 0;
     }
 
     public override void Cooldown(GameObject player)
     {
-        player.GetComponent<Jump>().isDashing = false;
+        player.GetComponent<PlanarMove>().isDashing = false;
         player.GetComponent<PlanarMove>().playerSpeed /= dashMultiplier;
     }
 }
