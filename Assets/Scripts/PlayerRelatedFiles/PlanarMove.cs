@@ -4,21 +4,22 @@ public class PlanarMove : MonoBehaviour
 {
     private CharacterController character;
     public Transform cam;
-
+    [Header("Planar Movement")]
     public float playerSpeed = 2.0f;
+    public float turnSmoothTime = 0.1f;
 
     // Jump vars
     [HideInInspector]
     public bool isDashing;
     [HideInInspector]
     public Vector3 verticalVelocity;
-    public float jumpHeight = 1.0f;
     private bool isGrounded;
     private float previousYPos;
-
+    private float modifiedGravityValue;
+    [Header("Jump Values")]
     public float gravityValue = -9.81f;
     public float fallSpeedModifer = 2;
-    private float modifiedGravityValue;
+    public float jumpHeight = 1.0f;
 
     private void Start()
     {
@@ -27,13 +28,13 @@ public class PlanarMove : MonoBehaviour
         character = gameObject.GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         PlanarMovemement();
     }
 
     // Move character across the plane
-    void PlanarMovemement()
+    private void PlanarMovemement()
     {
         Vector3 inputs = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
 
@@ -68,8 +69,7 @@ public class PlanarMove : MonoBehaviour
     }
 
     // Face towards the direction we are moving
-    public float turnSmoothTime = 0.1f;
-    Vector3 FaceTowardsDir(Vector3 inputs)
+    private Vector3 FaceTowardsDir(Vector3 inputs)
     {
         float turnSmoothVelocity = 0f;
 
@@ -85,7 +85,7 @@ public class PlanarMove : MonoBehaviour
         return moveDir;
     }
 
-    void ApplyGravity()
+    private void ApplyGravity()
     {
         // Fall faster than rise
         if (character.transform.position.y < previousYPos)

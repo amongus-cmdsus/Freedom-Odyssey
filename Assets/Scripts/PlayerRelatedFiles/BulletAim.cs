@@ -4,7 +4,9 @@ using Cinemachine;
 public class BulletAim : MonoBehaviour
 {
     public CinemachineFreeLook normalCam;
+    public Transform normalCamPos; 
     public CinemachineVirtualCamera bulletAimCam;
+    public Transform bulletAimCamPos;
     public GameObject aimTarget;
     public Canvas crosshair;
 
@@ -27,22 +29,21 @@ public class BulletAim : MonoBehaviour
     {
         if (Input.GetMouseButton(1))
         {
+            crosshair.enabled = true;
             bulletAimCam.Priority = 20;
             normalCam.Priority = 10;
 
-            playerMovement.enabled = false;
+            playerMovement.cam = bulletAimCamPos;
 
-            crosshair.enabled = true;
             BulletAimCamControl();
-            BulletAimMove();
         } 
         else
         {
-            playerMovement.enabled = true;
-
             crosshair.enabled = false;
             bulletAimCam.Priority = 10;
             normalCam.Priority = 20;
+
+            playerMovement.cam = normalCamPos;
         }
     }
 
@@ -55,12 +56,5 @@ public class BulletAim : MonoBehaviour
         float verticalMouse = Input.GetAxis("Mouse Y") * -mouseSens;
         aimRotation.x += verticalMouse;
         aimTarget.transform.rotation = Quaternion.Euler(aimRotation.x, playerRotation.y, 0f);
-    }
-
-    void BulletAimMove()
-    {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-
-        character.Move(direction * 5f * Time.deltaTime);
     }
 }
